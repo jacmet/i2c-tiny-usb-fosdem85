@@ -19,7 +19,7 @@ must be adapted to your hardware.
 
 /* ---------------------------- Hardware Config ---------------------------- */
 
-#if! defined (__AVR_ATtiny45__)
+#if defined (__AVR_ATmega8__)
 #define	USB_CFG_IOPORTNAME		C
 /* This is the port where the USB bus is connected. When you configure it to
  * "PORTB", the registers PORTB, PINB (=PORTB+2) and DDRB (=PORTB+1) will be
@@ -34,10 +34,12 @@ must be adapted to your hardware.
  * This may be any bit in the port. Please note that D+ must also be connected
  * to interrupt pin INT0!
  */
-#else
+#elif defined (__AVR_ATtiny45__)
 #define	USB_CFG_IOPORTNAME		B
 #define	USB_CFG_DMINUS_BIT		0
 #define	USB_CFG_DPLUS_BIT		2
+#else
+#error Unsupported MCU
 #endif
 
 /* --------------------------- Functional Range ---------------------------- */

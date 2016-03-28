@@ -54,12 +54,14 @@
 #include "usbtiny.h"
 typedef byte_t uchar;
 
-#if! defined (__AVR_ATtiny45__)
+#if defined (__AVR_ATmega8__)
 #define USBDDR DDRC
 #define USB_CFG_IOPORT PORTC
-#else
+#elif defined (__AVR_ATtiny45__)
 #define USBDDR DDRB
 #define USB_CFG_IOPORT PORTB
+#else
+#error Unsupported MCU
 #endif
 
 #define USB_CFG_DMINUS_BIT USBTINY_DMINUS
@@ -165,18 +167,20 @@ static unsigned short clock_delay2 = DEFAULT_DELAY/2;
 static unsigned short expected;
 static unsigned char saved_cmd;
 
-#if! defined (__AVR_ATtiny45__)
+#if defined (__AVR_ATmega8__)
 #define I2C_PORT   PORTC
 #define I2C_PIN    PINC
 #define I2C_DDR    DDRC
 #define I2C_SDA    _BV(4)
 #define I2C_SCL    _BV(5)
-#else
+#elif defined (__AVR_ATtiny45__)
 #define I2C_PORT   PORTB
 #define I2C_PIN    PINB
 #define I2C_DDR    DDRB
 #define I2C_SDA    _BV(1)
 #define I2C_SCL    _BV(5)
+#else
+#error Unsupported MCU
 #endif
 
 static void i2c_io_set_sda(uchar hi) {
