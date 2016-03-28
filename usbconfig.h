@@ -107,7 +107,7 @@ must be adapted to your hardware.
  * share the same product and vendor IDs. Not even if the devices are never
  * on the same bus together!
  */
-#define	USB_CFG_DEVICE_VERSION	0x05, 0x01
+#define	USB_CFG_DEVICE_VERSION	0x06, 0x01
 /* Version number of the device: Minor number first, then major number.
  */
 #define	USB_CFG_VENDOR_NAME		'T', 'i', 'l', 'l', ' ', 'H', 'a', 'r', 'b', 'a', 'u', 'm'
