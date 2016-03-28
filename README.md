@@ -16,11 +16,30 @@ The FOSDEM-85 board uses the nice
 [micronucleus](https://github.com/micronucleus/micronucleus)
 bootloader, so to upload this firmware simply connect the board to
 your PC and run: `micronucleus firmware.hex`
+```
+> Please plug in the device ...
+> Press CTRL+C to terminate the program.
+> Device is found!
+connecting: 40% complete
+> Device has firmware version 2.3
+> Device signature: 0x1e930b
+> Available space for user applications: 6522 bytes
+> Suggested sleep time between sending pages: 7ms
+> Whole page count: 102  page size: 64
+> Erase function sleep duration: 714ms
+parsing: 60% complete
+> Erasing the memory ...
+erasing: 80% complete
+> Starting to upload ...
+writing: 100% complete
+>> Micronucleus done. Thank you!
+```
 
 ## Usage
 
 Connect I2C device(s) to FOSDEM-85 board (SDA is pin 0, SCL is pin 2,
 VCC/GND) and connect USB cable to PC:
+![wiring](fosdem85.jpg)
 ```
 # i2cdetect -l | grep tiny
 i2c-9   i2c             i2c-tiny-usb at bus 003 device 003      I2C adapter
