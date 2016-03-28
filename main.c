@@ -186,6 +186,10 @@ static unsigned char saved_cmd;
 #define I2C_SDA    _BV(0)
 #define I2C_SCL    _BV(2)
 
+#define LED_DDR     DDRB
+#define LED_PORT    PORTB
+#define LED_PIN     PB1
+
 #else
 #error Unsupported MCU
 #endif
