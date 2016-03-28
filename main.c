@@ -185,8 +185,17 @@ static unsigned char saved_cmd;
 #define I2C_DDR    DDRB
 #define I2C_SDA    _BV(0)
 #define I2C_SCL    _BV(2)
+
 #else
 #error Unsupported MCU
+#endif
+
+#if defined(LED_DDR) && defined(LED_PORT) && defined(LED_PIN)
+#define LED_INIT    LED_DDR |= _BV(LED_PIN)
+#define LED_SET(x)  if (x) LED_PORT |= _BV(LED_PIN); else LED_PORT &= ~_BV(LED_PIN)
+#else
+#define LED_INIT
+#define LED_SET(x)
 #endif
 
 static void i2c_io_set_sda(uchar hi) {
@@ -349,6 +358,8 @@ static uchar i2c_do(struct i2c_cmd *cmd) {
   DEBUGF("i2c %s at 0x%02x, len = %d\n", 
 	   (cmd->flags&I2C_M_RD)?"rd":"wr", cmd->addr, cmd->len); 
 
+  LED_SET(1);
+
   /* normal 7bit address */
   addr = ( cmd->addr << 1 );
   if (cmd->flags & I2C_M_RD )
@@ -375,6 +386,8 @@ static uchar i2c_do(struct i2c_cmd *cmd) {
     if((cmd->cmd & CMD_I2C_END) && !expected) 
       i2c_stop();
   }
+
+  LED_SET(0);
 
   /* more data to be expected? */
 #ifndef USBTINY
@@ -557,6 +570,9 @@ int	main(void) {
   DEBUGF("i2c-tiny-usb - (c) 2006 by Till Harbaum\n");
 
   i2c_init();
+
+  LED_INIT;
+  LED_SET(0);
 
 #ifdef DEBUG
   i2c_scan();
