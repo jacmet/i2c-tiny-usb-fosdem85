@@ -38,6 +38,20 @@ must be adapted to your hardware.
 #define	USB_CFG_IOPORTNAME		B
 #define	USB_CFG_DMINUS_BIT		0
 #define	USB_CFG_DPLUS_BIT		2
+#elif defined (__AVR_ATtiny85__)
+#define	USB_CFG_IOPORTNAME		B
+#define	USB_CFG_DMINUS_BIT		3
+#define	USB_CFG_DPLUS_BIT		4
+
+#define USB_INTR_CFG            PCMSK
+#define USB_INTR_CFG_SET        (1 << USB_CFG_DPLUS_BIT)
+#define USB_INTR_CFG_CLR        0
+#define USB_INTR_ENABLE         GIMSK
+#define USB_INTR_ENABLE_BIT     PCIE
+#define USB_INTR_PENDING        GIFR
+#define USB_INTR_PENDING_BIT    PCIF
+#define USB_INTR_VECTOR         PCINT0_vect
+
 #else
 #error Unsupported MCU
 #endif

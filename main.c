@@ -57,7 +57,7 @@ typedef byte_t uchar;
 #if defined (__AVR_ATmega8__)
 #define USBDDR DDRC
 #define USB_CFG_IOPORT PORTC
-#elif defined (__AVR_ATtiny45__)
+#elif defined (__AVR_ATtiny45__) || defined (__AVR_ATtiny85__)
 #define USBDDR DDRB
 #define USB_CFG_IOPORT PORTB
 #else
@@ -179,6 +179,12 @@ static unsigned char saved_cmd;
 #define I2C_DDR    DDRB
 #define I2C_SDA    _BV(1)
 #define I2C_SCL    _BV(5)
+#elif defined (__AVR_ATtiny85__)
+#define I2C_PORT   PORTB
+#define I2C_PIN    PINB
+#define I2C_DDR    DDRB
+#define I2C_SDA    _BV(0)
+#define I2C_SCL    _BV(2)
 #else
 #error Unsupported MCU
 #endif
